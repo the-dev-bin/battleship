@@ -1,0 +1,23 @@
+.board {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto auto;
+    grid-template-rows: auto auto auto auto auto auto auto auto;
+    background: red;
+    width: 50vw;
+    height: 50vh;
+}
+.board>div {
+    background: gray;
+    width: 100%;
+    height: 100%;
+    border:  2px solid black;
+}
+#board-container {
+    display: grid;
+    place-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+body {
+    margin: 0;
+}
