@@ -24,6 +24,7 @@
     justify-content: space-around;
 }
 .ship{
+    height: 100%;
     display: flex;
     flex-direction: column;
 }
