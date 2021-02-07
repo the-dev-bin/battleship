@@ -18,6 +18,20 @@
     width: 100vw;
     height: 100vh;
 }
+.ship-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.ship{
+    display: flex;
+    flex-direction: column;
+}
+.ship-body {
+    height: calc(500px / 8);
+    width: calc(500px / 8);
+    background: red;
+}
 body {
     margin: 0;
 }
