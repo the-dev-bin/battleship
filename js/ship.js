@@ -30,4 +30,3 @@ function initShips(){
 }
 
 
-module.exports = initShips;
