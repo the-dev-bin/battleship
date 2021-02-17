@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 describe('Ships', function () {
   it('should Create', function () {
     const ships = initShips()
@@ -28,5 +29,20 @@ describe('Ships', function () {
         body: [true, true, true, true, true]
       }
     ])
+  })
+})
+describe('Ship placement', () => {
+  let boardElements = []
+  beforeEach(function () {
+    // Create board without event listeners
+    boardElements = []
+    for (let i = 0; i < 64; i++) {
+      const currentSquare = document.createElement('div')
+      boardElements.push(currentSquare)
+    }
+  })
+  it('should place', function () {
+    // Barebones board script
+    expect(checkPlacement(boardElements, initShips()[0], 0)).toBe(false)
   })
 })
