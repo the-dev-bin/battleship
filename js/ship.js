@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 // body[true] = ship not hit at spot
 function initShips () {
@@ -29,26 +30,26 @@ function initShips () {
     }
   ]
 }
-function placeShip(board,shipElements, ship, place) {
-  if(ship == null || place + (ship.body.length-1) * 8 > 63){
+function placeShip (board, shipElements, ship, place) {
+  if (ship == null || place + (ship.body.length - 1) * 8 > 63) {
     return
   }
-  for(let i = 0; i < ship.body.length; i++){
-    if(board[place + i*8].className == 'square-ship-body'){
+  for (let i = 0; i < ship.body.length; i++) {
+    if (board[place + i * 8].className === 'square-ship-body') {
       return
     }
   }
   ship.location = place
-  for(let i = 0; i < ship.body.length; i++){
-    board[place + i*8].className = 'square-ship-body'
-    let newSquare = board[place + i*8].cloneNode(true)
-    board[place + i*8].parentNode.replaceChild(newSquare,board[place + i*8])
+  for (let i = 0; i < ship.body.length; i++) {
+    board[place + i * 8].className = 'square-ship-body'
+    const newSquare = board[place + i * 8].cloneNode(true)
+    board[place + i * 8].parentNode.replaceChild(newSquare, board[place + i * 8])
   }
-  let shipElement = shipElements[ships.findIndex((x)=>ship == x )]
-  for( body of shipElement.children){
+  const shipElement = shipElements[ships.findIndex((x) => ship === x)]
+  for (body of shipElement.children) {
     body.style.background = 'none'
   }
-  shipElement.style.border = 'none' 
+  shipElement.style.border = 'none'
   ship = null
   shipElement.parentNode.removeChild(shipElement)
 }
