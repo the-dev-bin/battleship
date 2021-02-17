@@ -41,8 +41,10 @@ describe('Ship placement', () => {
       boardElements.push(currentSquare)
     }
   })
-  it('should place', function () {
-    // Barebones board script
-    expect(checkPlacement(boardElements, initShips()[0], 0)).toBe(false)
+  it('should validate', function () {
+    expect(checkPlacement(boardElements, initShips()[0], 0)).toBe(true)
+  })
+  it('should invalidate', function () {
+    expect(checkPlacement(boardElements, initShips()[0], 60)).toBe(false)
   })
 })
