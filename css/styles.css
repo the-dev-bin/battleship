@@ -36,6 +36,9 @@
 .square-ship-body {
     background: green !important;
 }
+.selected-ship {
+    border: 5px solid black !important;
+}
 body {
     margin: 0;
 }
