@@ -42,3 +42,8 @@
 body {
     margin: 0;
 }
+#invite {
+    position: absolute;
+    top: 10%;
+    left: 80%;
+}

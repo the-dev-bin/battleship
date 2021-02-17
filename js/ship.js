@@ -55,5 +55,6 @@ function placeShip (board, shipElements, ship, shipPlace) {
   }
   shipElement.style.border = 'none'
   ship = null
+  if (shipElement.parentNode.children.length === 1) { initMultiplayer() }
   shipElement.parentNode.removeChild(shipElement)
 }
