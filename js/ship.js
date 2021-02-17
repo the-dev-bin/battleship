@@ -30,20 +30,25 @@ function initShips () {
   ]
 }
 function placeShip(board, place) {
-  if(clickedShip != null){
-    clickedShip.location = place
-    if(place + (clickedShip.body.length-1) * 8 > 63){
-      console.log('too big')
-    } else{
-      for(let i = 0; i < clickedShip.body.length; i++){
-        board[place + i*8].style.background = 'green'
-      }
-      let shipElement = shipElements[ships.findIndex((x)=>clickedShip == x )]
-      for( body of shipElement.children){
-        body.style.background = 'none'
-      }
-      shipElement.style.border = 'none' 
-      clickedShip = null
+  if(clickedShip == null || place + (clickedShip.body.length-1) * 8 > 63){
+    return
+  }
+  for(let i = 0; i < clickedShip.body.length; i++){
+    if(board[place + i*8].className == 'square-ship-body'){
+      return
     }
   }
+  clickedShip.location = place
+  for(let i = 0; i < clickedShip.body.length; i++){
+    board[place + i*8].className = 'square-ship-body'
+    let newSquare = board[place + i*8].cloneNode(true)
+    board[place + i*8].parentNode.replaceChild(newSquare,board[place + i*8])
+  }
+  let shipElement = shipElements[ships.findIndex((x)=>clickedShip == x )]
+  for( body of shipElement.children){
+    body.style.background = 'none'
+  }
+  shipElement.style.border = 'none' 
+  clickedShip = null
+  shipElement.parentNode.removeChild(shipElement)
 }

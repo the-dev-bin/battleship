@@ -33,6 +33,9 @@
     width: calc(500px / 8);
     background: red;
 }
+.square-ship-body {
+    background: green !important;
+}
 body {
     margin: 0;
 }
