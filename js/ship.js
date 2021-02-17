@@ -30,7 +30,7 @@ function initShips () {
   ]
 }
 function placeShip(board, place) {
-  if(clickedShip){
+  if(clickedShip != null){
     clickedShip.location = place
     if(place + (clickedShip.body.length-1) * 8 > 63){
       console.log('too big')
@@ -43,6 +43,7 @@ function placeShip(board, place) {
         body.style.background = 'none'
       }
       shipElement.style.border = 'none' 
+      clickedShip = null
     }
   }
 }
