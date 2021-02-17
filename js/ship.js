@@ -38,6 +38,11 @@ function placeShip(board, place) {
       for(let i = 0; i < clickedShip.body.length; i++){
         board[place + i*8].style.background = 'green'
       }
+      let shipElement = shipElements[ships.findIndex((x)=>clickedShip == x )]
+      for( body of shipElement.children){
+        body.style.background = 'none'
+      }
+      shipElement.style.border = 'none' 
     }
   }
 }
