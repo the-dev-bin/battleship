@@ -29,3 +29,15 @@ function initShips () {
     }
   ]
 }
+function placeShip(board, place) {
+  if(clickedShip){
+    clickedShip.location = place
+    if(place + (clickedShip.body.length-1) * 8 > 63){
+      console.log('too big')
+    } else{
+      for(let i = 0; i < clickedShip.body.length; i++){
+        board[place + i*8].style.background = 'green'
+      }
+    }
+  }
+}
