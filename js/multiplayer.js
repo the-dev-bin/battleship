@@ -4,7 +4,6 @@ let conn
 let openConnection = false
 function initMultiplayer () {
   const joinID = new URL(window.location.href).searchParams.get('id')
-  console.log(joinID)
   const board = document.getElementById('opponent-board')
   document.getElementById('board-container1').style.display = 'grid'
   const boardElements = []
@@ -22,7 +21,6 @@ function initMultiplayer () {
 }
 function startHost () {
   const peer = new Peer()
-  console.log('Hey')
   peer.on('open', function (id) {
     console.log('My peer ID is: ' + id)
     document.getElementById('invite').innerHTML = 'Invite Link'
@@ -31,7 +29,6 @@ function startHost () {
   peer.on('connection', function (connection) {
     conn = connection
     conn.on('open', function () {
-      // Receive messages
       openConnection = true
       conn.on('data', function (data) {
         handleInput(data)
@@ -45,14 +42,10 @@ function startJoin (joinID) {
   peer.on('open', function (connection) {
     conn = peer.connect(joinID)
     conn.on('open', function () {
-      // Receive messages
       openConnection = true
       conn.on('data', function (data) {
         handleInput(data)
       })
-
-      // Send messages
-    //   conn.send({ event: 'isHit', place: 1 })
     })
   })
 }
@@ -86,7 +79,6 @@ function updateBoardAfterHitResponse (data) {
   }
 }
 function checkHit (clickedPlace) {
-  // Check if hit one of the ships
   const checkResponse = checkShipHit(clickedPlace)
   conn.send({ event: 'hitResponse', place: clickedPlace, hit: checkResponse.hit, sunk: checkResponse.sink })
 }
