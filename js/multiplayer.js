@@ -1,16 +1,17 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
+let conn
+let openConnection = false
 function initMultiplayer () {
   const joinID = new URL(window.location.href).searchParams.get('id')
   console.log(joinID)
-  // Need to add opponent board here
   const board = document.getElementById('opponent-board')
   document.getElementById('board-container1').style.display = 'grid'
   const boardElements = []
   for (let i = 0; i < 64; i++) {
     const currentSquare = board.appendChild(document.createElement('div'))
     boardElements.push(currentSquare)
-    // currentSquare.addEventListener('click', () => { placeShip(boardElements, shipElements, clickedShip, i); clickedShip = null })
+    currentSquare.addEventListener('click', () => { playerClick(boardElements, i) })
   }
   startJoin(joinID)
   if (joinID) {
@@ -31,12 +32,10 @@ function startHost () {
     conn = connection
     conn.on('open', function () {
       // Receive messages
-      console.log('yeehaw')
+      openConnection = true
       conn.on('data', function (data) {
-        console.log('Received', data)
+        handleInput(data)
       })
-      // Send messages
-      conn.send('Hello!')
     })
   })
 }
@@ -47,12 +46,37 @@ function startJoin (joinID) {
     conn = peer.connect(joinID)
     conn.on('open', function () {
       // Receive messages
+      openConnection = true
       conn.on('data', function (data) {
-        console.log('Received', data)
+        handleInput(data)
       })
 
       // Send messages
-      conn.send({ name: 'yolo' })
+    //   conn.send({ event: 'isHit', place: 1 })
     })
   })
+}
+function playerClick (board, clickedPlace) {
+  if (playerClick.called === true && openConnection) {
+    return
+  }
+  playerClick.called = true
+  conn.send({ event: 'hitQuery', place: clickedPlace })
+}
+function handleInput (data) {
+  console.log(data)
+  switch (data.event) {
+    case 'hitResponse':
+      console.log('got a hit')
+      break
+    case 'hitQuery':
+      console.log('hit Query')
+      checkHit(data.place)
+      break
+  }
+}
+function checkHit (clickedPlace) {
+  // Check if hit one of the ships
+  console.log('hit area?', clickedPlace)
+  conn.send({ event: 'hitResponse', place: clickedPlace, hit: false })
 }
