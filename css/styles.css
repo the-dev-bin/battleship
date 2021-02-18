@@ -56,3 +56,9 @@ body {
     top: 10%;
     left: 80%;
 }
+.miss {
+    background: white !important;
+}
+.hit {
+    background: red !important
+}

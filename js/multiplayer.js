@@ -68,12 +68,21 @@ function handleInput (data) {
   switch (data.event) {
     case 'hitResponse':
       console.log('got a hit')
+      updateBoardAfterHitResponse(data)
       playerClick.called = false
       break
     case 'hitQuery':
       console.log('hit Query')
       checkHit(data.place)
       break
+  }
+}
+function updateBoardAfterHitResponse (data) {
+  const board = Array.from(document.getElementById('opponent-board').children)
+  if (data.hit) {
+    board[data.place].className = 'hit'
+  } else {
+    board[data.place].className = 'miss'
   }
 }
 function checkHit (clickedPlace) {

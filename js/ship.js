@@ -44,7 +44,7 @@ function checkPlacement (board, ship, shipPlace) {
 function checkShipHit (location) {
   for (ship of ships) {
     for (let i = 0; i < ship.body.length; i++) {
-      if (ship.location + i * 8 == location) {
+      if (ship.location + i * 8 === location) {
         ship.body[i] = false
         const sunkQuery = ship.body.every(b => { return b === false })
         return { hit: true, sunk: sunkQuery }
