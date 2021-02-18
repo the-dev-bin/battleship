@@ -2,12 +2,12 @@
     display: grid;
     grid-template-columns: auto auto auto auto auto auto auto auto;
     grid-template-rows: auto auto auto auto auto auto auto auto;
-    background: red;
+    background: none;
     width: 400px;
     height: 400px;
 }
 .board>div {
-    background: gray;
+    background: steelblue;
     display: grid;
     place-items: center;
     width: 100%;
@@ -42,10 +42,10 @@
 .ship-body {
     height: calc(500px / 8);
     width: calc(500px / 8);
-    background: red;
+    background: dimgray;
 }
 .square-ship-body {
-    background: green !important;
+    background: dimgray !important;
 }
 .selected-ship {
     border: 5px solid black !important;
