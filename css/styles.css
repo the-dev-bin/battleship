@@ -8,6 +8,8 @@
 }
 .board>div {
     background: gray;
+    display: grid;
+    place-items: center;
     width: 100%;
     height: 100%;
     border:  2px solid black;
@@ -57,10 +59,16 @@ body {
     left: 80%;
 }
 .miss {
-    background: white !important;
+    background-image: url('../assets/miss_peg.svg') !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+
 }
 .hit {
-    background: red !important
+    background-image: url('../assets/hit_peg.svg') !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+
 }
 .turn {
     position: absolute;
