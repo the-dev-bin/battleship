@@ -2,6 +2,7 @@
 /* eslint-disable no-undef */
 let conn
 let openConnection = false
+let myTurn = false
 function initMultiplayer () {
   const joinID = new URL(window.location.href).searchParams.get('id')
   const board = document.getElementById('opponent-board')
@@ -37,6 +38,7 @@ function startHost () {
   })
 }
 function startJoin (joinID) {
+  myTurn = true
   const peer = new Peer()
   console.log('hello boi')
   peer.on('open', function (connection) {
@@ -50,11 +52,10 @@ function startJoin (joinID) {
   })
 }
 function playerClick (clickedPlace) {
-  if (playerClick.called === true && openConnection) {
-    return
+  if (openConnection && myTurn) {
+    myTurn = false
+    conn.send({ event: 'hitQuery', place: clickedPlace })
   }
-  playerClick.called = true
-  conn.send({ event: 'hitQuery', place: clickedPlace })
 }
 function handleInput (data) {
   console.log(data)
@@ -62,11 +63,11 @@ function handleInput (data) {
     case 'hitResponse':
       console.log('got a hit')
       updateBoardAfterHitResponse(data)
-      playerClick.called = false
       break
     case 'hitQuery':
       console.log('hit Query')
       checkHit(data.place)
+      myTurn = true
       break
   }
 }
