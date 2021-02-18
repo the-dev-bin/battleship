@@ -11,7 +11,7 @@ function initMultiplayer () {
   for (let i = 0; i < 64; i++) {
     const currentSquare = board.appendChild(document.createElement('div'))
     boardElements.push(currentSquare)
-    currentSquare.addEventListener('click', () => { playerClick(boardElements, i) })
+    currentSquare.addEventListener('click', () => { playerClick(i) })
   }
   startJoin(joinID)
   if (joinID) {
@@ -56,7 +56,7 @@ function startJoin (joinID) {
     })
   })
 }
-function playerClick (board, clickedPlace) {
+function playerClick (clickedPlace) {
   if (playerClick.called === true && openConnection) {
     return
   }
@@ -78,5 +78,5 @@ function handleInput (data) {
 function checkHit (clickedPlace) {
   // Check if hit one of the ships
   console.log('hit area?', clickedPlace)
-  conn.send({ event: 'hitResponse', place: clickedPlace, hit: false })
+  conn.send({ event: 'hitResponse', place: clickedPlace, hit: false, sunk: '' })
 }
