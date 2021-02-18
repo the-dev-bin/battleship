@@ -31,7 +31,7 @@ function initShips () {
   ]
 }
 function checkPlacement (board, ship, shipPlace) {
-  if (ship == null || shipPlace + (ship.body.length - 1) * 8 > 63) {
+  if (ship === null || shipPlace + (ship.body.length - 1) * 8 > 63) {
     return false
   }
   for (let i = 0; i < ship.body.length; i++) {
@@ -55,6 +55,7 @@ function checkShipHit (location) {
 }
 function placeShip (board, shipElements, ship, shipPlace) {
   if (!checkPlacement(board, ship, shipPlace)) { return }
+  if (ship.location) { return }
   ship.location = shipPlace
   for (let i = 0; i < ship.body.length; i++) {
     board[shipPlace + i * 8].className = 'square-ship-body'

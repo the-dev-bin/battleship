@@ -92,5 +92,5 @@ function checkHit (clickedPlace) {
 }
 function updateTurn () {
   myTurn = !myTurn
-  document.getElementById('turn').innerHTML = `It\'s ${ myTurn ? '' : '<strong>not</strong> '}your turn`
+  document.getElementById('turn').innerHTML = `It's ${myTurn ? '' : '<strong>not</strong> '}your turn`
 }
