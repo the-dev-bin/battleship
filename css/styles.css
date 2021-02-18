@@ -62,3 +62,8 @@ body {
 .hit {
     background: red !important
 }
+.turn {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+}
