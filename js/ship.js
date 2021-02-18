@@ -41,6 +41,18 @@ function checkPlacement (board, ship, shipPlace) {
   }
   return true
 }
+function checkShipHit (location) {
+  for (ship of ships) {
+    for (let i = 0; i < ship.body.length; i++) {
+      if (ship.location + i * 8 == location) {
+        ship.body[i] = false
+        const sunkQuery = ship.body.every(b => { return b === false })
+        return { hit: true, sunk: sunkQuery }
+      }
+    }
+  }
+  return { hit: false, sink: '' }
+}
 function placeShip (board, shipElements, ship, shipPlace) {
   if (!checkPlacement(board, ship, shipPlace)) { return }
   ship.location = shipPlace

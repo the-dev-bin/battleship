@@ -68,6 +68,7 @@ function handleInput (data) {
   switch (data.event) {
     case 'hitResponse':
       console.log('got a hit')
+      playerClick.called = false
       break
     case 'hitQuery':
       console.log('hit Query')
@@ -77,6 +78,6 @@ function handleInput (data) {
 }
 function checkHit (clickedPlace) {
   // Check if hit one of the ships
-  console.log('hit area?', clickedPlace)
-  conn.send({ event: 'hitResponse', place: clickedPlace, hit: false, sunk: '' })
+  const checkResponse = checkShipHit(clickedPlace)
+  conn.send({ event: 'hitResponse', place: clickedPlace, hit: checkResponse.hit, sunk: checkResponse.sink })
 }
