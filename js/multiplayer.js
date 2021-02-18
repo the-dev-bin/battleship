@@ -4,6 +4,14 @@ function initMultiplayer () {
   const joinID = new URL(window.location.href).searchParams.get('id')
   console.log(joinID)
   // Need to add opponent board here
+  const board = document.getElementById('opponent-board')
+  document.getElementById('board-container1').style.display = 'grid'
+  const boardElements = []
+  for (let i = 0; i < 64; i++) {
+    const currentSquare = board.appendChild(document.createElement('div'))
+    boardElements.push(currentSquare)
+    // currentSquare.addEventListener('click', () => { placeShip(boardElements, shipElements, clickedShip, i); clickedShip = null })
+  }
   startJoin(joinID)
   if (joinID) {
     startJoin(joinID)

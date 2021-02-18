@@ -7,7 +7,7 @@ function init () {
   const shipContainer = document.getElementsByClassName('ship-container')[0]
 
   const boardElements = []
-  const board = document.getElementsByClassName('board')[0]
+  const board = document.getElementsByClassName('board')[1]
 
   for (let i = 0; i < 64; i++) {
     const currentSquare = board.appendChild(document.createElement('div'))
