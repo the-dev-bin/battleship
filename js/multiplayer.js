@@ -1,38 +1,5 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-/*
-<body>
-    <button onclick="console.log('asd' + Math.random())">asd</button>
-    <a id="invite">Invite link</a>
-</body>
-</html>
-<script>
-    var joinURL = new URL(window.location.href);
-    let joinID = joinURL.searchParams.get("id");
-    var peer = new Peer();
-    var conn;
-    function event(data){
-
-    }
-    if(!joinID){
-        console.log(window.location)
-
-    }
-    else{
-        peer.on('open', function(connection) {
-            conn = peer.connect(joinID);
-            conn.on('open', function() {
-                // Receive messages
-                conn.on('data', function(data) {
-                    console.log('Received', data);
-                });
-
-                // Send messages
-                conn.send(JSON.stringify({name: 'yolo'}));
-            });
-        } )
-    }
-*/
 function initMultiplayer () {
   const joinID = new URL(window.location.href).searchParams.get('id')
   console.log(joinID)
