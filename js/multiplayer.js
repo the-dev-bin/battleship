@@ -25,9 +25,8 @@ function startHost () {
       // Receive messages
       console.log('yeehaw')
       conn.on('data', function (data) {
-        console.log('Received', JSON.parse(data))
+        console.log('Received', data)
       })
-
       // Send messages
       conn.send('Hello!')
     })
@@ -45,7 +44,7 @@ function startJoin (joinID) {
       })
 
       // Send messages
-      conn.send(JSON.stringify({ name: 'yolo' }))
+      conn.send({ name: 'yolo' })
     })
   })
 }
