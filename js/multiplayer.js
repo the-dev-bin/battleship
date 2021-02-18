@@ -75,11 +75,14 @@ function updateBoardAfterHitResponse (data) {
   const board = Array.from(document.getElementById('opponent-board').children)
   if (data.hit) {
     board[data.place].className = 'hit'
+    if (data.sunk !== '') {
+      confirm(`You sunk my ${data.sunk}`)
+    }
   } else {
     board[data.place].className = 'miss'
   }
 }
 function checkHit (clickedPlace) {
   const checkResponse = checkShipHit(clickedPlace)
-  conn.send({ event: 'hitResponse', place: clickedPlace, hit: checkResponse.hit, sunk: checkResponse.sink })
+  conn.send({ event: 'hitResponse', place: clickedPlace, hit: checkResponse.hit, sunk: checkResponse.sunk })
 }

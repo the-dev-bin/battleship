@@ -47,7 +47,7 @@ function checkShipHit (location) {
       if (ship.location + i * 8 === location) {
         ship.body[i] = false
         const sunkQuery = ship.body.every(b => { return b === false })
-        return { hit: true, sunk: sunkQuery }
+        return { hit: true, sunk: sunkQuery ? ship.name : '' }
       }
     }
   }
