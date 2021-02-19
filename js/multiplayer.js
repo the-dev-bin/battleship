@@ -30,7 +30,7 @@ function startHost () {
   peer.on('connection', function (connection) {
     conn = connection
     conn.on('open', function () {
-      document.getElementById('turn').innerHTML = 'It\'s your turn'
+      document.getElementById('turn').innerHTML = 'It\'s not your turn'
       conn.on('data', function (data) {
         handleInput(data)
       })
