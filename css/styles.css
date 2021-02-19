@@ -27,7 +27,7 @@
     height: 60vh;
 }
 #opponent-board>div {
-    background: dodgerblue !important;
+    background: dodgerblue;
 }
 .ship-container {
     display: flex;
