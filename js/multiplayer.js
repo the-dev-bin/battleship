@@ -64,6 +64,7 @@ function handleInput (data) {
   switch (data.event) {
     case 'hitResponse':
       updateBoard(data, Array.from(document.getElementById('opponent-board').children))
+      if (data.sunk !== '') { alert(`You sunk my ${data.sunk}`) }
       break
     case 'hitQuery':
       checkHit(data.place)
@@ -71,16 +72,6 @@ function handleInput (data) {
       break
     case 'winResponse':
       alert('You have won')
-  }
-}
-function updateBoard (data, board) {
-  if (data.hit) {
-    board[data.place].className = 'hit'
-    if (data.sunk !== '') {
-      alert(`You sunk my ${data.sunk}`)
-    }
-  } else {
-    board[data.place].className = 'miss'
   }
 }
 function checkHit (clickedPlace) {
