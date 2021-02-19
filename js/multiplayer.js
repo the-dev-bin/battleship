@@ -44,7 +44,6 @@ function startHost () {
 function startJoin (joinID) {
   updateTurn()
   const peer = new Peer()
-  console.log('hello boi')
   peer.on('open', function (connection) {
     conn = peer.connect(joinID)
     conn.on('open', function () {
@@ -62,40 +61,37 @@ function playerClick (clickedPlace) {
   }
 }
 function handleInput (data) {
-  console.log(data)
   switch (data.event) {
     case 'hitResponse':
-      console.log('got a hit')
-      updateBoardAfterHitResponse(data, Array.from(document.getElementById('opponent-board').children))
+      updateBoard(data, Array.from(document.getElementById('opponent-board').children))
       break
     case 'hitQuery':
-      console.log('hit Query')
       checkHit(data.place)
       updateTurn()
       break
     case 'winResponse':
-      confirm('You have won')
+      alert('You have won')
   }
 }
-function updateBoardAfterHitResponse (data, board) {
+function updateBoard (data, board) {
   if (data.hit) {
     board[data.place].className = 'hit'
     if (data.sunk !== '') {
-      confirm(`You sunk my ${data.sunk}`)
+      alert(`You sunk my ${data.sunk}`)
     }
   } else {
     board[data.place].className = 'miss'
   }
 }
 function checkHit (clickedPlace) {
-  const checkResponse = checkShipHit(clickedPlace)
-  updateBoardAfterHitResponse({ place: clickedPlace, sunk: checkResponse.sunk, hit: checkResponse.hit }, Array.from(document.getElementById('player-board').children))
+  const boardResponse = hitBoard(clickedPlace)
+  updateBoard({ place: clickedPlace, sunk: '', hit: boardResponse.hit }, Array.from(document.getElementById('player-board').children))
   if (allShipsSunk()) {
     updateTurn()
-    confirm('You have lost')
+    alert('You have lost')
     conn.send({ event: 'winResponse' })
   }
-  conn.send({ event: 'hitResponse', place: clickedPlace, hit: checkResponse.hit, sunk: checkResponse.sunk })
+  conn.send({ event: 'hitResponse', place: clickedPlace, hit: boardResponse.hit, sunk: boardResponse.sunk })
 }
 function updateTurn () {
   myTurn = !myTurn

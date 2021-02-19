@@ -41,7 +41,7 @@ function checkPlacement (board, ship, shipPlace) {
   }
   return true
 }
-function checkShipHit (location) {
+function hitBoard (location) {
   for (ship of ships) {
     for (let i = 0; i < ship.body.length; i++) {
       if (ship.location + i * 8 === location) {
