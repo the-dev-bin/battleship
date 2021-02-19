@@ -15,7 +15,7 @@ function init () {
     currentSquare.addEventListener('click', () => placeShip(boardElements, shipElements, clickedShip, i))
   }
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < ships.length; i++) {
     const ship = ships[i]
     const currentShip = shipContainer.appendChild(document.createElement('div'))
     currentShip.className = 'ship'

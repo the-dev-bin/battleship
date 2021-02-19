@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 let conn
-let openConnection = false
 let myTurn = false
 function initMultiplayer () {
   const joinID = new URL(window.location.href).searchParams.get('id')
@@ -13,9 +12,8 @@ function initMultiplayer () {
     boardElements.push(currentSquare)
     currentSquare.addEventListener('click', () => { playerClick(i) })
   }
-  startJoin(joinID)
   if (joinID) {
-    startJoin(joinID)
+    connectToHost(joinID)
   } else {
     startHost()
   }
@@ -33,21 +31,18 @@ function startHost () {
     conn = connection
     conn.on('open', function () {
       document.getElementById('turn').innerHTML = 'It\'s your turn'
-
-      openConnection = true
       conn.on('data', function (data) {
         handleInput(data)
       })
     })
   })
 }
-function startJoin (joinID) {
+function connectToHost (joinID) {
   updateTurn()
   const peer = new Peer()
   peer.on('open', function (connection) {
     conn = peer.connect(joinID)
     conn.on('open', function () {
-      openConnection = true
       conn.on('data', function (data) {
         handleInput(data)
       })
@@ -55,26 +50,26 @@ function startJoin (joinID) {
   })
 }
 function playerClick (clickedPlace) {
-  if (openConnection && myTurn) {
+  if (conn.open && myTurn) {
     updateTurn()
-    conn.send({ event: 'hitQuery', place: clickedPlace })
+    conn.send({ event: 'shotQuery', place: clickedPlace })
   }
 }
 function handleInput (data) {
   switch (data.event) {
-    case 'hitResponse':
+    case 'shotResponse':
       updateBoard(data, Array.from(document.getElementById('opponent-board').children))
       if (data.sunk !== '') { alert(`You sunk my ${data.sunk}`) }
       break
-    case 'hitQuery':
-      checkHit(data.place)
+    case 'shotQuery':
+      checkShot(data.place)
       updateTurn()
       break
     case 'winResponse':
       alert('You have won')
   }
 }
-function checkHit (clickedPlace) {
+function checkShot (clickedPlace) {
   const boardResponse = hitBoard(clickedPlace)
   updateBoard({ place: clickedPlace, sunk: '', hit: boardResponse.hit }, Array.from(document.getElementById('player-board').children))
   if (allShipsSunk()) {
@@ -82,7 +77,7 @@ function checkHit (clickedPlace) {
     alert('You have lost')
     conn.send({ event: 'winResponse' })
   }
-  conn.send({ event: 'hitResponse', place: clickedPlace, hit: boardResponse.hit, sunk: boardResponse.sunk })
+  conn.send({ event: 'shotResponse', place: clickedPlace, hit: boardResponse.hit, sunk: boardResponse.sunk })
 }
 function updateTurn () {
   myTurn = !myTurn
