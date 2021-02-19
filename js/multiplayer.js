@@ -27,7 +27,7 @@ function startHost () {
   peer.on('open', function (id) {
     console.log('My peer ID is: ' + id)
     document.getElementById('invite').innerHTML = 'Invite Link'
-    document.getElementById('invite').setAttribute('href', `${window.origin}?id=${id}`)
+    document.getElementById('invite').setAttribute('href', `${window.location.href}?id=${id}`)
   })
   peer.on('connection', function (connection) {
     conn = connection
