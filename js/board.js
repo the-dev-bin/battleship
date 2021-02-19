@@ -22,10 +22,6 @@ function placeShip (board, shipElements, ship, shipPlace) {
     board[shipPlace + i * 8].parentNode.replaceChild(newSquare, board[shipPlace + i * 8])
   }
   const shipElement = shipElements[ships.findIndex((x) => ship === x)]
-  for (body of shipElement.children) {
-    body.style.background = 'none'
-  }
-  shipElement.style.border = 'none'
   ship = null
   if (shipElement.parentNode.children.length === 1) { initMultiplayer() }
   shipElement.parentNode.removeChild(shipElement)
