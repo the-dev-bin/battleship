@@ -71,3 +71,9 @@ function placeShip (board, shipElements, ship, shipPlace) {
   if (shipElement.parentNode.children.length === 1) { initMultiplayer() }
   shipElement.parentNode.removeChild(shipElement)
 }
+function allShipsSunk () {
+  for (ship of ships) {
+    if (ship.body.some(b => { return b === true })) { return false }
+  }
+  return true
+}

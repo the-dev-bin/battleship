@@ -73,6 +73,8 @@ function handleInput (data) {
       checkHit(data.place)
       updateTurn()
       break
+    case 'winResponse':
+      confirm('You have won')
   }
 }
 function updateBoardAfterHitResponse (data) {
@@ -88,6 +90,11 @@ function updateBoardAfterHitResponse (data) {
 }
 function checkHit (clickedPlace) {
   const checkResponse = checkShipHit(clickedPlace)
+  if (allShipsSunk()) {
+    updateTurn()
+    confirm('You have lost')
+    conn.send({ event: 'winResponse' })
+  }
   conn.send({ event: 'hitResponse', place: clickedPlace, hit: checkResponse.hit, sunk: checkResponse.sunk })
 }
 function updateTurn () {
