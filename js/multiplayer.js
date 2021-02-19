@@ -66,7 +66,7 @@ function handleInput (data) {
   switch (data.event) {
     case 'hitResponse':
       console.log('got a hit')
-      updateBoardAfterHitResponse(data)
+      updateBoardAfterHitResponse(data, Array.from(document.getElementById('opponent-board').children))
       break
     case 'hitQuery':
       console.log('hit Query')
@@ -77,8 +77,7 @@ function handleInput (data) {
       confirm('You have won')
   }
 }
-function updateBoardAfterHitResponse (data) {
-  const board = Array.from(document.getElementById('opponent-board').children)
+function updateBoardAfterHitResponse (data, board) {
   if (data.hit) {
     board[data.place].className = 'hit'
     if (data.sunk !== '') {
@@ -90,6 +89,7 @@ function updateBoardAfterHitResponse (data) {
 }
 function checkHit (clickedPlace) {
   const checkResponse = checkShipHit(clickedPlace)
+  updateBoardAfterHitResponse({ place: clickedPlace, sunk: checkResponse.sunk, hit: checkResponse.hit }, Array.from(document.getElementById('player-board').children))
   if (allShipsSunk()) {
     updateTurn()
     confirm('You have lost')
