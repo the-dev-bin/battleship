@@ -21,7 +21,7 @@ function init () {
     currentShip.className = 'ship'
     shipElements.push(currentShip)
     currentShip.addEventListener('click', () => {
-      shipElements.forEach((x) => { x.style.border = 'none' })
+      shipElements.forEach((x) => { x.className = 'ship' })
       currentShip.className = 'ship selected-ship'
       clickedShip = ship
     })
